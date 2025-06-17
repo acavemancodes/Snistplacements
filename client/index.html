@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome you are at manasnis. Build for snis community to help each other grow!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">ManaSnis</div>
+            <div class="nav-item active" data-section="placements">placements-Track</div>
+            <div class="nav-item" data-section="alumni">Ask-Alumni</div>
+            <div class="nav-item" data-section="chat">All-partychat</div>
+            <div class="nav-item" data-section="news">Snis-News</div>
+            <div class="nav-item" data-section="devworms">DevWorms@Snis</div>
+            <div class="nav-item" data-section="dsaworms">DsaWorms@Snis</div>
+        </div>
+
+        <!-- Company Tracker Sidebar -->
+        <div class="company-tracker active" id="companyTracker">
+            <div class="tracker-header">
+            <h2>🎯 Placement Tracker</h2>
+                <p>Track your application progress</p>
+            </div>
+            
+            <div class="company-list" id="companyList">
+                <!-- Company rows will be populated by JavaScript -->
+            </div>
+            
+            <div class="tracker-stats">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="appliedCount">0</div>
+                        <div class="stat-label">Applied</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="pendingCount"></div>
+                        <div class="stat-label">Pending</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <input type="text" class="search-bar" placeholder="find snisians">
+                <div class="header-buttons">
+                    <button class="btn btn-primary" id="signupBtn">Sign Up</button>
+                    <button class="btn btn-secondary" id="loginBtn">Log In</button>
+                </div>
+            </div>
+            
+            <!-- Hero Section -->
+            <div class="hero">
+                <div class="graduation-cap">🎓</div>
+                <div class="hero-content">
+                    <h1>Welcome you are at manasnis. Build for snis community to help each other grow!</h1>
+                    <p class="hero-description">
+                        A space where SNIST minds come together — to code, connect, and climb higher. Learn. Build. Uplift. Together.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Chat Box Section -->
+            <div id="chatBox" class="chat-box">
+                <div class="chat-header">
+                    <span class="terminal-prompt">$</span> All-partychat
+                    <span class="terminal-status">Connected</span>
+                </div>
+                <div id="log" class="chat-log">
+                    <!-- Messages will be added here -->
+                </div>
+                <div class="chat-input-wrapper">
+                    <span class="terminal-prompt">></span>
+                    <input type="text" id="msg" class="chat-input" placeholder="Type command..." autocomplete="off">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-container">
+        <!-- Sign Up Modal -->
+        <div id="signupModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Create Account</h2>
+                    <span class="close" data-modal="signupModal">&times;</span>
+                </div>
+                <form id="signupForm">
+                    <div class="form-group">
+                        <input type="text" id="signupName" required>
+                        <input type="email" id="signupEmail" required>
+                        <input type="password" id="signupPassword" required>
+                    </div>
+                    <button type="submit">Sign Up</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Login Modal -->
+        <div id="loginModal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close" data-modal="loginModal">&times;</span>
+                <div class="modal-header">
+                    <h2>Welcome Back</h2>
+                </div>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="loginEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="modal-btn">Log In</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+    <script src="chat.js"></script>
+</body>
+</html>
