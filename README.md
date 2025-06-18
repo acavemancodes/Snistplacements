@@ -1,0 +1,3 @@
+The idea of this project is to update and track the student placements and apply to following directly from the website the process of doing it such is by api call to gmail parse the mail from the particular mail account from which we get the campus drive information second is where we can discuss with our college community there are multiple sections such as ask alumni ,snisdevworms,snisdsaworms,allpartychat as the name suggest this are to post there problem and let the other help the identity of user will not be exposed togetherly most of it is build on javascript usage of ai optimization incomplete.
+anyone who wants to add there part of idea and contribute to this project are welcomed. 
+we are planning to host this on an official website.
