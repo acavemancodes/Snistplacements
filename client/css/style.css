@@ -1,0 +1,732 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background: #3a3a3a;
+    color: #f6faf6;
+}
+.hero{
+    background: linear-gradient(135deg, #3a3a3a, #2c2c2c);
+    color: #f0f4f0;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 200px;
+    background: #3a3a3a;
+    padding: 20px 0;
+    border-right: 1px solid #333;
+    border: 0.1px solid white; 
+}
+
+.logo {
+    padding: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #f0f4f0;
+    text-align: center;
+    background-color: #3a3a3a;
+}
+
+.nav-item {
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: background 0.3s;
+    border: 0.1px solid white;
+}
+
+
+
+
+
+/* Sidebar nav items with unique colors */
+.nav-item[class*="active"] {
+    background: #47cf73;
+    border-left-color: #47cf73;
+    color: #000;
+}
+
+/* Placements Track */
+.nav-item:nth-child(2) {
+    border-left: 3px solid #edebf2;
+}
+.nav-item:nth-child(2):hover {
+    background: #47cf73;
+    color: #000;
+}
+
+/* Ask-Alumni */
+.nav-item:nth-child(3) {
+    border-left: 3px solid #4ECDC4;
+}
+.nav-item:nth-child(3):hover {
+    background: #4ECDC4;
+    color: #000;
+}
+
+/* All-partychat */
+.nav-item:nth-child(4) {
+    border-left: 3px solid #FFD93D;
+}
+.nav-item:nth-child(4):hover {
+    background: #FFD93D;
+    color: #000;
+}
+
+/* Snis-News */
+.nav-item:nth-child(5) {
+    border-left: 3px solid #6C63FF;
+}
+.nav-item:nth-child(5):hover {
+    background: #6C63FF;
+    color: #fff;
+}
+
+/* DevWorms@Snis */
+.nav-item:nth-child(6) {
+    border-left: 3px solid #FF9A8B;
+}
+.nav-item:nth-child(6):hover {
+    background: #FF9A8B;
+    color: #000;
+}
+
+/* DsaWorms@Snis */
+.nav-item:nth-child(7) {
+    border-left: 3px solid #A8E6CF;
+}
+.nav-item:nth-child(7):hover {
+    background: #A8E6CF;
+    color: #000;
+}
+
+/* Company Tracker Sidebar */
+.company-tracker {
+    width: 600px;
+    background: #3a3a3a;
+    border-right: 1px solid #333;
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    max-height: 100vh;
+    overflow-y: auto;
+    border: 0.1px solid white;
+}
+
+.company-tracker.active {
+    display: flex;
+}
+
+.tracker-header {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #f0f4f0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #faf9f9;
+
+}
+
+.tracker-header h2 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    
+}
+
+.tracker-header p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    justify-content: center;
+}
+
+.company-list {
+    margin-bottom: 20px;
+}
+
+.company-item {
+    padding: 10px;
+    border-bottom: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+     border-bottom: 0.1px solid #faf9f9;
+}
+
+.company-row {
+    background: #3a3a3a;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    padding: 15px;
+    transition: all 0.3s ease;
+    border-left: 4px solid #eaedee;
+    position: relative;
+    overflow: hidden;
+    align-items: center;
+}
+
+.company-row.applied {
+    background: #2d4a2d;
+    border-left-color: #3f895d;
+    box-shadow: 0 2px 10px rgba(71, 207, 115, 0.2);
+}
+
+.company-row.applied::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(220, 8, 82, 0.1));
+    pointer-events: none;
+}
+
+.company-row:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.company-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.company-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.company-row.applied .company-name {
+    color: #09e526;
+}
+
+.status-checkbox {
+    width: 24px;
+    height: 24px;
+    border: 4px solid #f2eeee;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.status-checkbox.checked {
+    background: #47cf73;
+    border-color: #47cf73;
+}
+
+@keyframes checkmark {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.company-details {
+    display: flex;
+    
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.company-info {
+    display: flex;
+    
+
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+}
+
+.ctc-info, .date-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 80px;
+     border-bottom: 1px solid #faf9f9;
+    justify-content: center;    
+}
+
+.info-label {
+    font-size: 0.7rem;
+    color: #888;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+}
+
+.ctc-value {
+    color: #eeedea !important;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.last-date {
+    color: #f5f1f1 !important;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.company-row.applied .last-date {
+    color: #47cf73 !important;
+}
+
+.company-row.applied .ctc-value {
+    color: #47cf73 !important;
+}
+
+/*.apply-link {
+    background: #47cf73;
+    color: #000;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    display: inline-block;
+}*/
+
+.apply-link:hover {
+    background: #3db35f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(71, 207, 115, 0.4);
+}
+
+.company-row.applied .apply-link {
+    background: #6C63FF;
+    color: #fff;
+}
+
+.company-row.applied .apply-link:hover {
+    background: #5a52d5;
+}
+
+/* Stats Section */
+.tracker-stats {
+    padding: 10px;
+    background: #3a3a3a;
+    
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.stat-card {
+    background: #f2f0f0;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.stat-card:hover {
+    border-color: #47cf73;
+    transform: translateY(-2px);
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #0ae90a;
+}
+
+.stat-label {
+    color: #3a3a3a;
+    font-size: 0.9rem;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+/* Header */
+.header {
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #2c2c2c;
+    border-bottom: 1px solid #f3eeee;
+}
+
+.search-bar {
+    background: #1a1a1a;
+    border: 1px solid #fffbfb;
+    border-radius: 5px;
+    padding: 10px 15px;
+    color: #ffffff;
+    width: 300px;
+}
+
+.search-bar::placeholder {
+    color: #888;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background: #47cf73;
+    color: #000;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid #3a3a3a;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+/* User Info Display */
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    color: #ffffff;
+}
+
+#userName {
+    font-weight: bold;
+    color: #47cf73;
+    font-size: 1rem;
+}
+
+#userId {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 2px;
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none; /* Change from flex to none */
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal:not(.hidden) {
+    display: flex;
+}
+
+.modal-content {
+    background: #2c2c2c;
+    width: 400px;
+    border-radius: 12px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1001; /* Ensure modal is above overlay */
+}
+
+.modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #3a3a3a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 24px;
+    color: #888;
+    cursor: pointer;
+    z-index: 1002;
+}
+
+.close:hover {
+    color: #fff;
+}
+
+.modal form {
+    padding: 24px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    color: #888;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.modal input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #3a3a3a;
+    border-radius: 6px;
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.modal input:focus {
+    outline: none;
+    border-color: #47cf73;
+}
+
+.email-hint {
+    display: block;
+    color: #888;
+    font-size: 0.8rem;
+    margin-top: 4px;
+}
+
+.modal-btn {
+    width: 100%;
+    padding: 12px;
+    background: #47cf73;
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.modal-btn:hover {
+    background: #3db563;
+}
+
+.forgot-password {
+    display: block;
+    text-align: center;
+    color: #888;
+    margin-top: 16px;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.forgot-password:hover {
+    color: #47cf73;
+}
+
+/* User Menu Styles */
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    background: #47cf73;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: #000;
+}
+
+.user-name {
+    color: #fff;
+    font-weight: 500;
+}
+
+/* Modal error states */
+.error {
+    border-color: #ef4444 !important;
+}
+
+.error-message {
+    color: #ef4444;
+    font-style: italic;
+}
+
+.own-message {
+    color: #47cf73;
+    font-weight: bold;
+}
+
+.other-message {
+    color: #fff;
+}
+
+.system-message {
+    color: #888;
+    font-style: italic;
+}
+
+/* Chat Box Styles */
+.chat-box {
+    flex: 1;
+    margin: 20px;
+    margin-top: 0;
+    background: #3a3a3a;
+    border: 1px solid #333;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 280px); /* Fixed height, adjust as needed */
+    font-family: 'Courier New', monospace;
+}
+
+.chat-header {
+    padding: 8px 12px;
+    background: #3a3a3a;
+    border-bottom: 1px solid #333;
+    color: #00ff00;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.terminal-status {
+    color: #faf8f8;
+    font-size: 0.8rem;
+}
+
+.chat-log {
+    flex: 1;
+    padding: 12px;
+    overflow-y: auto;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #00ff00;
+    background: #000;
+    /* Custom scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: #333 #000;
+}
+
+.chat-log::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-log::-webkit-scrollbar-track {
+    background: #000;
+}
+
+.chat-log::-webkit-scrollbar-thumb {
+    background-color: #333;
+    border-radius: 3px;
+}
+
+.chat-input-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background: #0a0a0a;
+    border-top: 1px solid #333;
+    gap: 8px;
+}
+
+.terminal-prompt {
+    color: #00ff00;
+    font-weight: bold;
+}
+
+.chat-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    padding: 4px 0;
+}
+
+.chat-input::placeholder {
+    color: #006600;
+}
+
+.chat-input:focus {
+    outline: none;
+}
+
+.chat-log p {
+    margin: 4px 0;
+    padding: 2px 0;
+}
+
+/* Message styles */
+.own-message {
+    margin: 2px 0;
+    color: #00ff00;
+}
+
+.other-message {
+    margin: 2px 0;
+    color: #33ff33;
+}
+
+.system-message {
+    color: #666;
+    font-style: italic;
+}
+
+.error-message {
+    color: #ff3333;
+}

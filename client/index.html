@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome you are at manasnis. Build for snis community to help each other grow!</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
     <div class="container">
         <!-- Sidebar -->
         <div class="sidebar">
-            <div class="logo">ManaSnis</div>
+            <div class="logo"> &#128100; ManaSnis</div>
             <div class="nav-item active" data-section="placements">placements-Track</div>
             <div class="nav-item" data-section="alumni">Ask-Alumni</div>
             <div class="nav-item" data-section="chat">All-partychat</div>
@@ -22,14 +22,10 @@
         <!-- Company Tracker Sidebar -->
         <div class="company-tracker active" id="companyTracker">
             <div class="tracker-header">
-            <h2>🎯 Placement Tracker</h2>
+                <h2>🎯 Placement Tracker</h2>
                 <p>Track your application progress</p>
             </div>
-            
-            <div class="company-list" id="companyList">
-                <!-- Company rows will be populated by JavaScript -->
-            </div>
-            
+            <div class="company-list" id="companyList"></div>
             <div class="tracker-stats">
                 <div class="stats-grid">
                     <div class="stat-card">
@@ -37,7 +33,7 @@
                         <div class="stat-label">Applied</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number" id="pendingCount"></div>
+                        <div class="stat-number" id="pendingCount">0</div>
                         <div class="stat-label">Pending</div>
                     </div>
                 </div>
@@ -124,8 +120,9 @@
         </div>
     </div>
 
+    <!-- Update script paths at the bottom of the file -->
     <script src="/socket.io/socket.io.js"></script>
-    <script src="script.js"></script>
-    <script src="chat.js"></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/chat.js"></script>
 </body>
 </html>

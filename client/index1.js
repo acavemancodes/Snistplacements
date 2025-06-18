@@ -4,7 +4,9 @@ const { Server } = require('socket.io');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const path = require('path');
-const User = require(path.join(__dirname, '..', 'models', 'User'));
+
+// Fix the User model import path
+const User = require(path.join(__dirname, '..', 'models', 'User.js'));
 
 const app = express();
 const server = http.createServer(app);
