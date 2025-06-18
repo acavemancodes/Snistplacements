@@ -1,3 +1,4 @@
+
 console.log("👉 Server starting...");
 
 const express = require('express');
@@ -30,7 +31,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/manasnis', {
 .catch(err => console.error("❌ MongoDB connection error:", err));
 
 // Import routes
-const authRoutes = require('./src/routes/auth');
+const authRoutes = require('./server/routes/auth');
 
 // Use routes
 app.use('/api/auth', authRoutes);
@@ -47,8 +48,10 @@ io.on('connection', (socket) => {
         console.log(`🔴 Client disconnected: ${socket.id}`);
     });
 });
-
+const placementRoutes = require('./server/routes/placements');
+app.use('/api/placements', placementRoutes);
 // Start server
 server.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
+ 
