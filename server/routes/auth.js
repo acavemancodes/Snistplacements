@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const { OAuth2Client } = require('google-auth-library');
+
+const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 // Signup route
 router.post('/signup', async (req, res) => {
@@ -8,14 +11,6 @@ router.post('/signup', async (req, res) => {
         console.log('Received signup request:', req.body);
         const { name, email, password } = req.body;
         
-        // Validate email domain
-        if (!email.endsWith('@sreenidhi.edu.in')) {
-            return res.status(400).json({ 
-                message: 'Please use your Sreenidhi email address' 
-            });
-        }
-
-        // Check if user exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ 
@@ -23,11 +18,11 @@ router.post('/signup', async (req, res) => {
             });
         }
 
-        // Create new user
+       
         const user = new User({
             name,
             email,
-            password // Note: In production, hash this password
+            password 
         });
 
         await user.save();
@@ -43,12 +38,12 @@ router.post('/signup', async (req, res) => {
     }
 });
 
-// Login route
+
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Find user
+        
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({ 
@@ -56,7 +51,7 @@ router.post('/login', async (req, res) => {
             });
         }
 
-        // Check password (Add proper password hashing in production)
+        
         if (user.password !== password) {
             return res.status(400).json({ 
                 message: 'Invalid password' 
@@ -70,6 +65,50 @@ router.post('/login', async (req, res) => {
     } catch (error) {
         console.error('Login error:', error);
         res.status(500).json({ message: 'Server error' });
+    }
+});
+
+// Google OAuth login
+router.post('/google', async (req, res) => {
+    try {
+        if (!process.env.GOOGLE_CLIENT_ID) {
+            return res.status(500).json({ message: 'Google auth not configured' });
+        }
+        const { credential } = req.body;
+        if (!credential) {
+            return res.status(400).json({ message: 'Missing credential' });
+        }
+
+        const ticket = await googleClient.verifyIdToken({
+            idToken: credential,
+            audience: process.env.GOOGLE_CLIENT_ID
+        });
+
+        const payload = ticket.getPayload();
+        const email = payload?.email;
+        const name = payload?.name || 'SNIST User';
+
+        if (!email) {
+            return res.status(400).json({ message: 'Unable to read email from Google token' });
+        }
+
+        let user = await User.findOne({ email });
+        if (!user) {
+            user = new User({
+                name,
+                email,
+                password: 'google-oauth' // placeholder to satisfy current schema
+            });
+            await user.save();
+        }
+
+        res.json({
+            message: 'Google login successful',
+            user: { name: user.name, email: user.email }
+        });
+    } catch (error) {
+        console.error('Google auth error:', error);
+        res.status(500).json({ message: 'Google authentication failed' });
     }
 });
 

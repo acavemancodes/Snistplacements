@@ -1,128 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome you are at manasnis. Build for snis community to help each other grow!</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SNIST Forum — Build. Share. Improve. Together.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <script type="module" src="/js/firebase-auth.js"></script>
 </head>
-<body>
-    <div class="container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="logo"> &#128100; ManaSnis</div>
-            <div class="nav-item active" data-section="placements">placements-Track</div>
-            <div class="nav-item" data-section="alumni">Ask-Alumni</div>
-            <div class="nav-item" data-section="chat">All-partychat</div>
-            <div class="nav-item" data-section="news">Snis-News</div>
-            <div class="nav-item" data-section="devworms">DevWorms@Snis</div>
-            <div class="nav-item" data-section="dsaworms">DsaWorms@Snis</div>
-        </div>
+<body class="theme-day">
+  <div class="background-blur"></div>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="logo">🪐 SNIST Forum</div>
+      <div class="nav-group">
+        <div class="nav-item active" data-section="placements">🎯 Placement Track</div>
+        <div class="nav-item" data-section="alumni">🧭 Find Alumni</div>
+        <div class="nav-item" data-section="devworms">💻 Dev Worms</div>
+        <div class="nav-item" data-section="dsaworms">🧩 DSA Worms</div>
+        <div class="nav-item" data-section="news">📰 SNIST News</div>
+        <div class="nav-item" data-section="chat">💬 PartyChat</div>
+      </div>
+      <div class="sidebar-foot">
+        <p class="mini-label">Built for SNIST • 2026</p>
+        <p class="mini-text">Build. Share. Improve. Together.</p>
+      </div>
+    </aside>
 
-        <!-- Company Tracker Sidebar -->
-        <div class="company-tracker active" id="companyTracker">
-            <div class="tracker-header">
-                <h2>🎯 Placement Tracker</h2>
-                <p>Track your application progress</p>
-            </div>
-            <div class="company-list" id="companyList"></div>
-            <div class="tracker-stats">
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number" id="appliedCount">0</div>
-                        <div class="stat-label">Applied</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="pendingCount">0</div>
-                        <div class="stat-label">Pending</div>
-                    </div>
-                </div>
-            </div>
+    <main class="main-area">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Sreenidhi Community Network</p>
+          <h1 class="headline">SNIST Forum for builders, problem-solvers, and campus updates.</h1>
         </div>
+        <div class="header-actions">
+          <input type="search" id="globalSearch" class="search" placeholder="Search people, roles, tags">
+          <button class="btn btn-ghost" id="themeToggle">🌞 Day</button>
+          <div id="googleSignIn" class="google-slot"></div>
+          <div class="header-buttons">
+            <button class="btn btn-primary" id="signupBtn">Sign Up</button>
+            <button class="btn btn-ghost" id="loginBtn">Log In</button>
+          </div>
+        </div>
+      </header>
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Header -->
-            <div class="header">
-                <input type="text" class="search-bar" placeholder="find snisians">
-                <div class="header-buttons">
-                    <button class="btn btn-primary" id="signupBtn">Sign Up</button>
-                    <button class="btn btn-secondary" id="loginBtn">Log In</button>
-                </div>
-            </div>
-            
-            <!-- Hero Section -->
-            <div class="hero">
-                <div class="graduation-cap">🎓</div>
-                <div class="hero-content">
-                    <h1>Welcome you are at manasnis. Build for snis community to help each other grow!</h1>
-                    <p class="hero-description">
-                        A space where SNIST minds come together — to code, connect, and climb higher. Learn. Build. Uplift. Together.
-                    </p>
-                </div>
-            </div>
-            
-            <!-- Chat Box Section -->
-            <div id="chatBox" class="chat-box">
-                <div class="chat-header">
-                    <span class="terminal-prompt">$</span> All-partychat
-                    <span class="terminal-status">Connected</span>
-                </div>
-                <div id="log" class="chat-log">
-                    <!-- Messages will be added here -->
-                </div>
-                <div class="chat-input-wrapper">
-                    <span class="terminal-prompt">></span>
-                    <input type="text" id="msg" class="chat-input" placeholder="Type command..." autocomplete="off">
-                </div>
-            </div>
+      <section class="section is-active" id="section-placements">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">On-Campus + Off-Campus</p>
+            <h2>Placement Tracker</h2>
+            <p class="subhead">Auto-pulled from placement mails (fallback sample data shown).</p>
+          </div>
+          <div class="stat-chip">
+            <span id="appliedCount">0</span> applied • <span id="pendingCount">0</span> open
+          </div>
         </div>
+        <div class="split">
+          <div class="panel">
+            <div id="companyList" class="company-list"></div>
+          </div>
+          <div class="panel highlight">
+            <h3 class="panel-title">Quick Filters</h3>
+            <div class="chip-row">
+              <button class="chip" data-filter="product">Product</button>
+              <button class="chip" data-filter="service">Service</button>
+              <button class="chip" data-filter="intern">Intern</button>
+              <button class="chip" data-filter="fresher">Fresher</button>
+            </div>
+            <div class="mini-metrics">
+              <div class="metric-card"><p class="label">Highest CTC</p><p class="value" id="metricHighest">-</p></div>
+              <div class="metric-card"><p class="label">Next Deadline</p><p class="value" id="metricNext">-</p></div>
+            </div>
+            <p class="tiny-note">Mark “Applied” to move items to done. Data auto-refreshes from /api/placements.</p>
+            <div class="pdf-links">
+              <p class="label">Branch placement PDFs</p>
+              <a class="pdf-link" href="https://snistplacementreport.netlify.app/snist_placement_report_2024_25" target="_blank">SNIST Placement Data Visualization 2024-25</a>
+              <a class="pdf-link" href="/assets/placements/CSE-Placement-details-for-2024-25.pdf" target="_blank">CSE Placement 2024-25</a>
+              <a class="pdf-link" href="/assets/placements/CSE-IOT-Placement-details-for-2024-25.pdf" target="_blank">CSE-IoT Placement 2024-25</a>
+              <a class="pdf-link" href="/assets/placements/CE-Placement-details-for-2024-25.pdf" target="_blank">CE Placement 2024-25</a>
+              <a class="pdf-link" href="/assets/placements/IT-Placement-details-for-2024-25.pdf" target="_blank">IT Placement 2024-25</a>
+              <a class="pdf-link" href="/assets/placements/ECM-Placement-details-for-2024-25.pdf" target="_blank">ECM Placement 2024-25</a>
+              <a class="pdf-link" href="/assets/placements/EEE-Placement-details-for-2024-25.pdf" target="_blank">EEE Placement 2024-25</a>
+              <a class="pdf-link" href="/assets/placements/ME-Placement-details-for-2024-25.pdf" target="_blank">ME Placement 2024-25</a>
+              <a class="pdf-link" href="/assets/placements/ECE-Placement-details-for-2024-25.pdf" target="_blank">ECE Placement 2024-25</a>
+              <a class="pdf-link" href="/assets/placements/CSECyber-Security-Placement-details-for-2024-25.pdf" target="_blank">CSE Cyber Security 2024-25</a>
+              <a class="pdf-link" href="/assets/placements/CSEAIML-Placement-details-for-2024-25.pdf" target="_blank">CSE AI/ML 2024-25</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="section-alumni">
+        <div class="section-head alumni-head">
+          <div>
+            <p class="eyebrow">Mentors on demand</p>
+            <h2>Find Alumni</h2>
+            <p class="subhead">Search by name, company, position, or graduation year.</p>
+            <p id="alumniResultCount" class="tiny-note alumni-count"></p>
+          </div>
+          <div id="alumniLottie" class="alumni-lottie" aria-hidden="true"></div>
+        </div>
+        <div class="alumni-filter-bar">
+          <div class="alumni-filter-row">
+            <div class="alumni-search-wrap">
+              <span class="alumni-search-icon">⌕</span>
+              <input type="search" id="alumniSearch" class="search alumni-search" placeholder="Search name, company, role, year, department">
+            </div>
+            <select id="alumniYearFilter" class="filter-select" aria-label="Filter by graduation year">
+              <option value="all">All years</option>
+            </select>
+          </div>
+          <div class="alumni-filter-row">
+            <select id="alumniCompanyFilter" class="filter-select" aria-label="Filter by company">
+              <option value="all">All companies</option>
+            </select>
+            <button type="button" class="btn btn-ghost alumni-reset-btn" id="alumniClearBtn">Reset</button>
+          </div>
+        </div>
+        <div class="alumni-table">
+          <div class="alumni-table-head" id="alumniSortRow">
+            <button type="button" class="alumni-sort" data-sort="name">Alumni <span class="sort-icon">↕</span></button>
+            <button type="button" class="alumni-sort" data-sort="position">Role <span class="sort-icon">↕</span></button>
+            <button type="button" class="alumni-sort" data-sort="company">Company <span class="sort-icon">↕</span></button>
+            <button type="button" class="alumni-sort" data-sort="dept">Dept <span class="sort-icon">↕</span></button>
+            <button type="button" class="alumni-sort is-active" data-sort="gradYear">Batch <span class="sort-icon">↓</span></button>
+          </div>
+          <div id="alumniGrid" class="alumni-list"></div>
+        </div>
+        <nav id="alumniPagination" class="alumni-pagination" aria-label="Alumni list pagination"></nav>
+      </section>
+
+      <section class="section" id="section-devworms">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Build. Share. Improve.</p>
+            <h2>Dev Worms</h2>
+            <p class="subhead">Projects, build logs, and help-needed threads from SNIST developers.</p>
+          </div>
+        </div>
+        <div class="forum-shell" data-category="devworms"></div>
+      </section>
+
+      <section class="section" id="section-dsaworms">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Problem Solving Crew</p>
+            <h2>DSA Worms</h2>
+            <p class="subhead">Discuss approaches, edge-cases, and coding strategy for DSA questions.</p>
+          </div>
+        </div>
+        <div class="forum-shell" data-category="dsaworms"></div>
+      </section>
+
+      <section class="section" id="section-news">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Campus radar</p>
+            <h2>SNIST News</h2>
+            <p class="subhead">Placement updates, drives, deadlines, and key community announcements.</p>
+          </div>
+        </div>
+        <div class="forum-shell" data-category="snistnews"></div>
+      </section>
+
+      <section class="section" id="section-chat">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Casual Community Threads</p>
+            <h2>PartyChat</h2>
+            <p class="subhead">Light discussion, campus banter, and chill threads with moderation basics.</p>
+          </div>
+        </div>
+        <div class="forum-shell" data-category="partychat"></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-container">
+    <div id="signupModal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Create Account</h2>
+          <button type="button" class="close" data-modal="signupModal" aria-label="Close signup form">&times;</button>
+        </div>
+        <div id="authLottieSignup" class="auth-lottie" aria-hidden="true"></div>
+        <div class="auth-card">
+          <button type="button" class="btn btn-primary btn-google" id="firebaseGoogleBtnModal">Continue with Google</button>
+          <hr class="auth-divider">
+          <div class="input-stack">
+            <label for="signupName">Full name</label>
+            <input type="text" id="signupName" required>
+            <label for="signupEmail">Email</label>
+            <input type="email" id="signupEmail" required placeholder="you@example.com">
+            <label for="signupPassword">Password</label>
+            <input type="password" id="signupPassword" required minlength="6" placeholder="At least 6 characters">
+          </div>
+          <button type="submit" form="signupForm" class="modal-btn">Create account</button>
+          <p class="auth-helper">By continuing you agree to the community code of conduct.</p>
+        </div>
+        <form id="signupForm" style="display:none"></form>
+      </div>
     </div>
 
-    <div class="modal-container">
-        <!-- Sign Up Modal -->
-        <div id="signupModal" class="modal hidden">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2>Create Account</h2>
-                    <span class="close" data-modal="signupModal">&times;</span>
-                </div>
-                <form id="signupForm">
-                    <div class="form-group">
-                        <input type="text" id="signupName" required>
-                        <input type="email" id="signupEmail" required>
-                        <input type="password" id="signupPassword" required>
-                    </div>
-                    <button type="submit">Sign Up</button>
-                </form>
-            </div>
+    <div id="loginModal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Welcome Back</h2>
+          <button type="button" class="close" data-modal="loginModal" aria-label="Close login form">&times;</button>
         </div>
-
-        <!-- Login Modal -->
-        <div id="loginModal" class="modal hidden">
-            <div class="modal-content">
-                <span class="close" data-modal="loginModal">&times;</span>
-                <div class="modal-header">
-                    <h2>Welcome Back</h2>
-                </div>
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" id="loginEmail" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" id="loginPassword" required>
-                    </div>
-                    <button type="submit" class="modal-btn">Log In</button>
-                </form>
-            </div>
+        <div id="authLottieLogin" class="auth-lottie" aria-hidden="true"></div>
+        <div class="auth-card">
+          <button type="button" class="btn btn-primary btn-google" id="firebaseGoogleBtnModalLogin">Continue with Google</button>
+          <hr class="auth-divider">
+          <div class="input-stack">
+            <label for="loginEmail">Email</label>
+            <input type="email" id="loginEmail" required placeholder="you@example.com">
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" required placeholder="Password">
+          </div>
+          <button type="submit" form="loginForm" class="modal-btn">Log In</button>
+          <p class="auth-helper">Use any email; Google sign-in works too.</p>
         </div>
+        <form id="loginForm" style="display:none"></form>
+      </div>
     </div>
+  </div>
 
-    <!-- Update script paths at the bottom of the file -->
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/js/script.js"></script>
-    <script src="/js/chat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+  <script src="/js/script.js"></script>
+  <script src="/js/forum.js"></script>
 </body>
 </html>
