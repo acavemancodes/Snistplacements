@@ -653,6 +653,14 @@ class Auth {
     this.checkExistingUser();
   }
 
+  normalizeUser(user) {
+    if (!user) return null;
+    const email = String(user.email || '').trim().toLowerCase();
+    const name = String(user.name || '').trim() || deriveNameFromEmail(email) || 'SNIST User';
+    if (!email) return null;
+    return { ...user, name, email };
+  }
+
   initializeEventListeners() {
     const signupBtn = document.getElementById('signupBtn');
     const loginBtn = document.getElementById('loginBtn');
@@ -813,7 +821,7 @@ class Auth {
   }
 
   setUser(user) {
-    this.currentUser = user;
+    this.currentUser = this.normalizeUser(user);
     this.persist();
     this.updateNavbar();
     window.dispatchEvent(new CustomEvent('snist-auth-changed', { detail: { user: this.currentUser } }));
@@ -822,7 +830,10 @@ class Auth {
   checkExistingUser() {
     const saved = JSON.parse(localStorage.getItem('snist-current-user'));
     if (saved) {
-      this.currentUser = saved;
+      this.currentUser = this.normalizeUser(saved);
+      if (!this.currentUser) {
+        localStorage.setItem('snist-current-user', 'null');
+      }
       this.updateNavbar();
       window.dispatchEvent(new CustomEvent('snist-auth-changed', { detail: { user: this.currentUser } }));
     }
@@ -833,12 +844,14 @@ class Auth {
     const googleSlot = document.getElementById('googleSignIn');
     if (!headerButtons) return;
     if (this.currentUser) {
+      const displayName = String(this.currentUser.name || '').trim() || deriveNameFromEmail(this.currentUser.email) || 'SNIST User';
+      const avatarInitial = displayName.charAt(0).toUpperCase() || 'S';
       if (googleSlot) googleSlot.classList.add('is-hidden');
       headerButtons.innerHTML = `
         <div class="user-menu-wrapper">
           <div class="user-menu" id="userMenu">
-            <div class="user-avatar">${this.currentUser.name[0].toUpperCase()}</div>
-            <span class="user-name">${this.currentUser.name}</span>
+            <div class="user-avatar">${avatarInitial}</div>
+            <span class="user-name">${displayName}</span>
           </div>
           <div class="user-menu-dropdown hidden" id="userMenuDropdown">
             <div class="dropdown-item" id="logoutBtn">Log out</div>
