@@ -10,15 +10,36 @@ import {
   updateProfile
 } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 
+function hasFirebaseConfig(cfg) {
+  return Boolean(
+    cfg
+    && cfg.apiKey
+    && cfg.authDomain
+    && cfg.projectId
+    && cfg.appId
+  );
+}
+
 async function loadConfig() {
-  const res = await fetch('/api/config/firebase');
-  return res.json();
+  const browserConfig = typeof window !== 'undefined' ? window.__SNIST_FIREBASE_CONFIG : null;
+  if (hasFirebaseConfig(browserConfig)) return browserConfig;
+
+  try {
+    const res = await fetch('/api/config/firebase');
+    if (!res.ok) return null;
+    const apiConfig = await res.json();
+    if (hasFirebaseConfig(apiConfig)) return apiConfig;
+  } catch (err) {
+    console.warn('Could not load Firebase config from backend:', err);
+  }
+
+  return null;
 }
 
 async function initFirebase() {
   const cfg = await loadConfig();
-  if (!cfg.apiKey) {
-    console.warn('Firebase config missing; set FIREBASE_* in .env');
+  if (!cfg) {
+    console.warn('Firebase config missing. Set /js/firebase-web-config.js or backend FIREBASE_* vars.');
     return null;
   }
   const app = initializeApp(cfg);
